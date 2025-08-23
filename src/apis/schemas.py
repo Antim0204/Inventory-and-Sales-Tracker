@@ -1,5 +1,5 @@
 # src/apis/schemas.py
-from marshmallow import Schema, fields, validates, ValidationError
+from marshmallow import Schema, fields, validates, ValidationError, pre_load
 from decimal import Decimal
 
 class CreateFuelTypeIn(Schema):
@@ -42,9 +42,31 @@ class SalesQuery(Schema):
     from_ = fields.DateTime(load_default=None, data_key="from")
     to = fields.DateTime(load_default=None, data_key="to")
     fuel_type_id = fields.Integer(load_default=None)
+    @pre_load
+    def parse_dates(self, data, **kwargs):
+        # Convert ImmutableMultiDict to a mutable dict
+        data = dict(data)
+        for key in ["from", "to"]:
+            if key in data and len(data[key]) == 10:  # Only YYYY-MM-DD
+                if key == "from":
+                    data[key] += "T00:00:00"
+                else:
+                    data[key] += "T23:59:59"
+        return data
 
 class ReportQuery(Schema):
     from_ = fields.DateTime(load_default=None, data_key="from")
     to = fields.DateTime(load_default=None, data_key="to")
     fuel_type_id = fields.Integer(load_default=None)
     granularity = fields.String(load_default="day")  # day|week|month
+    @pre_load
+    def parse_dates(self, data, **kwargs):
+        # Convert ImmutableMultiDict to mutable dict
+        data = dict(data)
+        for key in ["from", "to"]:
+            if key in data and len(data[key]) == 10:  # YYYY-MM-DD
+                if key == "from":
+                    data[key] += "T00:00:00"
+                else:
+                    data[key] += "T23:59:59"
+        return data
