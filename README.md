@@ -139,7 +139,7 @@ The API is structured around core business functions and returns JSON for all re
 | Endpoint | Method | Description |
 | :---- | :---- | :---- |
 | /fuel-types | POST, GET | Create a new fuel type or list all existing fuel types. |
-| /fuel-types/{id}/price | PUT | Update the price of a specific fuel type. |
+| /fuel-types/{id}/price | PATCH | Update the price of a specific fuel type. |
 | /inventory/refill | POST | Add stock to a fuel type. |
 | /inventory | GET | Get a snapshot of the current inventory levels. |
 | /sales | POST, GET | Record a new sale or list past sales transactions. |
@@ -180,7 +180,7 @@ Here is a more detailed look at the key API endpoints with example curl commands
 #### **3\. Update Fuel Price**
 
 * **Description:** Updates the price per litre for a specific fuel type. A new price history entry is created.  
-* **Method & Path:** PUT /fuel-types/{id}/price (e.g., /fuel-types/1/price)  
+* **Method & Path:** PATCH /fuel-types/{id}/price (e.g., /fuel-types/1/price)  
 * **Request Body:**  
   {  
     "price\_per\_litre": "92.500"  
