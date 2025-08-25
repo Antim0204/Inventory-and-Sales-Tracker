@@ -1,7 +1,6 @@
 from decimal import Decimal
 from sqlalchemy import text
 from sqlalchemy.orm import Session
-from src.models import FuelType
 from src.errors import NotFoundError, ValidationError
 from src.utils.decimal_utils import to_decimal
 from sqlalchemy import text
