@@ -21,6 +21,7 @@ services:
       - .env
     ports:
       - "80:5050"   # map host port 80 → container port 5050
+      - "5050:5050"  # map the host port 5050 -> container port so that locally users canrequest using the http:localhost:5050 also when using curl 
     volumes:
       - .:/app:cached
     command: >
