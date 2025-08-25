@@ -4,7 +4,7 @@ from marshmallow import ValidationError as MsValidationError
 from src.db import session_scope
 from src.modules.inventory_service import refill_stock, list_inventory
 from src.errors import ValidationError
-from .schemas import RefillStockIn
+from src.models.schemas import RefillStockIn
 
 bp = Blueprint("inventory", __name__, url_prefix="/inventory")
 

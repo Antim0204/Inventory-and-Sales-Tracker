@@ -4,7 +4,7 @@ from marshmallow import ValidationError as MsValidationError
 from src.db import session_scope
 from src.modules.fuel_types_service import create_fuel_type, update_price, list_fuel_types
 from src.errors import ValidationError
-from .schemas import CreateFuelTypeIn, UpdatePriceIn
+from src.models.schemas import CreateFuelTypeIn, UpdatePriceIn
 
 bp = Blueprint("fuel_types", __name__, url_prefix="/fuel-types")
 

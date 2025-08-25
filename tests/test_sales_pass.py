@@ -25,3 +25,23 @@ class TestSalesPass:
         r = client.get("/inventory")
         inv = r.get_json()
         assert Decimal(inv[0]["stock_litres"]) == Decimal("550.000")
+
+    def test_list_sales_with_filters(self, client):
+        # Create & sell
+        r = client.post("/fuel-types", json={
+            "name": "Petrol", "price_per_litre": "100.000", "initial_stock_litres": "200.000"
+        })
+        fid = r.get_json()["id"]
+        client.post("/sales", json={"fuel_type_id": fid, "litres": "10.000"})
+
+        # List without filters
+        r = client.get("/sales")
+        assert r.status_code == 200
+        assert isinstance(r.get_json(), list)
+
+        # List with fuel_type_id filter
+        r = client.get(f"/sales?fuel_type_id={fid}")
+        assert r.status_code == 200
+        assert all(s["fuel_type_id"] == fid for s in r.get_json())
+        
+

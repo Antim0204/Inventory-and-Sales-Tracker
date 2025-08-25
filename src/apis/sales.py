@@ -4,7 +4,7 @@ from marshmallow import ValidationError as MsValidationError
 from src.db import session_scope
 from src.modules.sales_service import record_sale, list_sales
 from src.errors import ValidationError
-from .schemas import RecordSaleIn, SalesQuery
+from src.models.schemas import RecordSaleIn, SalesQuery
 
 bp = Blueprint("sales", __name__, url_prefix="/sales")
 

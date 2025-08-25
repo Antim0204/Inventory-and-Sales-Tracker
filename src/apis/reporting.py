@@ -1,7 +1,7 @@
 from flask import Blueprint, current_app, jsonify, request
 from marshmallow import ValidationError as MsValidationError
 from src.db import session_scope
-from .schemas import ReportQuery
+from src.models.schemas import ReportQuery
 from src.modules.reporting_service import (
     sales_overview, sales_timeseries, sales_by_fuel_type, price_history
 )
